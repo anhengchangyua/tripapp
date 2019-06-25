@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/page/MyPage.dart';
-import 'package:flutter_app/page/TravelPage.dart';
+import 'package:flutter_app/page/my_page.dart';
+import 'package:flutter_app/page/travel_page.dart';
 import 'package:flutter_app/page/home_page.dart';
 import 'package:flutter_app/page/search_page.dart';
 
@@ -25,16 +25,16 @@ class _TabNavigatorState extends State<TabNavigator>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('在东港'),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                print('ICON PRESS');
-              })
-        ],
-      ),
+//      appBar: AppBar(
+//        title: const Text('在东港'),
+//        actions: <Widget>[
+//          IconButton(
+//              icon: Icon(Icons.search),
+//              onPressed: () {
+//                print('Icon Press');
+//              })
+//        ],
+//      ),
       body: PageView(
         controller: _controller,
         children: <Widget>[HomePage(), SearchPage(), TravelPage(), MyPage()],
