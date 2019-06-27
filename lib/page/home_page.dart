@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/model/home_model.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-
-// ignore: must_be_immutable
+import 'package:flutter_app/dao/home_dao.dart';
+import 'dart:convert';
 
 const APPBAR_SCROLL_OFFSET = 100;
 
@@ -17,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   double appBarAlpha = 0;
+  String resultString = '';
 
   _onScroll(offset) {
     print(offset);
@@ -32,6 +34,33 @@ class _HomePageState extends State<HomePage> {
     print(appBarAlpha);
   }
 
+//  loadData() {
+//    HomeDao.fetch().then((result) {
+//      setState(() {
+//        resultString = json.encode(result);
+//      });
+//    }).catchError((e) {
+//      resultString = e.toString();
+//    });
+//  }
+
+  loadData() async {
+    try {
+      HomeModel homeModel = await HomeDao.fetch();
+      setState(() {
+        resultString = json.encode(homeModel);
+      });
+    } catch (e) {
+      resultString = e.toString();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -42,6 +71,7 @@ class _HomePageState extends State<HomePage> {
           context: context,
           child: NotificationListener(
               onNotification: (scrollNotification) {
+                //监听列表滚动
                 if (scrollNotification is ScrollUpdateNotification &&
                     scrollNotification.depth == 0) {
                   _onScroll(scrollNotification.metrics.pixels);
@@ -67,13 +97,14 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     height: 800,
                     child: ListTile(
-                      title: Text('Test'),
+                      title: Text(resultString),
                     ),
                   )
                 ],
               )),
         )),
         Opacity(
+          //具有opacity能力的组件
           child: Container(
             height: 80,
             decoration: BoxDecoration(color: Colors.white),
