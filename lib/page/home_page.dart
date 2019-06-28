@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/model/home_model.dart';
+import 'package:flutter_app/model/local_nav_list_model.dart';
+import 'package:flutter_app/widget/local_nav.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_app/dao/home_dao.dart';
-import 'dart:convert';
 
 const APPBAR_SCROLL_OFFSET = 100;
 
@@ -19,6 +20,8 @@ class _HomePageState extends State<HomePage> {
 
   double appBarAlpha = 0;
   String resultString = '';
+
+  List<LocalNavList> localNavList = [];
 
   _onScroll(offset) {
     print(offset);
@@ -48,10 +51,12 @@ class _HomePageState extends State<HomePage> {
     try {
       HomeModel homeModel = await HomeDao.fetch();
       setState(() {
-        resultString = json.encode(homeModel);
+        localNavList = homeModel.localNavList;
+//        resultString = json.encode(homeModel);
       });
     } catch (e) {
-      resultString = e.toString();
+      print(e);
+//      resultString = e.toString();
     }
   }
 
@@ -66,43 +71,50 @@ class _HomePageState extends State<HomePage> {
     return Stack(
       children: <Widget>[
         Scaffold(
+            backgroundColor: Colors.black12,
             body: MediaQuery.removePadding(
-          removeTop: true,
-          context: context,
-          child: NotificationListener(
-              onNotification: (scrollNotification) {
-                //监听列表滚动
-                if (scrollNotification is ScrollUpdateNotification &&
-                    scrollNotification.depth == 0) {
-                  _onScroll(scrollNotification.metrics.pixels);
-                }
-              },
-              child: ListView(
-                children: <Widget>[
-                  Container(
-                    height: 160,
-                    child: Swiper(
-                      onTap: (int) {
-                        print(int);
-                      },
-                      itemCount: _imageUrls.length,
-                      autoplay: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Image.network(_imageUrls[index],
-                            fit: BoxFit.fill);
-                      },
-                      pagination: SwiperPagination(),
-                    ),
-                  ),
-                  Container(
-                    height: 800,
-                    child: ListTile(
-                      title: Text(resultString),
-                    ),
-                  )
-                ],
-              )),
-        )),
+              removeTop: true,
+              context: context,
+              child: NotificationListener(
+                  onNotification: (scrollNotification) {
+                    //监听列表滚动
+                    if (scrollNotification is ScrollUpdateNotification &&
+                        scrollNotification.depth == 0) {
+                      _onScroll(scrollNotification.metrics.pixels);
+                    }
+                  },
+                  child: ListView(
+                    children: <Widget>[
+                      Container(
+                        height: 160,
+                        child: Swiper(
+                          onTap: (int) {
+                            print(int);
+                          },
+                          itemCount: _imageUrls.length,
+                          autoplay: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Image.network(_imageUrls[index],
+                                fit: BoxFit.fill);
+                          },
+                          pagination: SwiperPagination(),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(2),
+                        child: LocalNav(
+                          localNavList: localNavList,
+                        ),
+                      ),
+                      Container(
+                        height: 800,
+                        child: ListTile(
+                          title: Text(resultString),
+                        ),
+                      )
+                    ],
+                  )),
+            )),
         Opacity(
           //具有opacity能力的组件
           child: Container(
