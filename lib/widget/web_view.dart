@@ -127,30 +127,33 @@ class _WebViewState extends State<WebView> {
         color: backgroundColor,
       );
     }
-    return Container(
-        child: Stack(
-      children: <Widget>[
-        GestureDetector(
-          onTap: () {},
-          child: Container(
-            margin: EdgeInsets.only(left: 10),
-            child: Icon(
-              Icons.close,
-              color: backButtonColor,
-              size: 26,
+    return FractionallySizedBox(
+      widthFactor: 1,
+      child: Container(
+          child: Stack(
+        children: <Widget>[
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              margin: EdgeInsets.only(left: 10),
+              child: Icon(
+                Icons.close,
+                color: backButtonColor,
+                size: 26,
+              ),
             ),
           ),
-        ),
-        Positioned(
-          left: 0,
-          right: 0,
-          child: Center(
-              child: Text(
-            widget.title ?? '',
-            style: TextStyle(color: backgroundColor, fontSize: 20),
-          )),
-        ),
-      ],
-    ));
+          Positioned(
+            left: 0,
+            right: 0,
+            child: Center(
+                child: Text(
+              widget.title ?? '',
+              style: TextStyle(color: backgroundColor, fontSize: 20),
+            )),
+          ),
+        ],
+      )),
+    );
   }
 }
