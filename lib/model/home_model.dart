@@ -9,8 +9,8 @@ class HomeModel {
   Config config;
   List<BannerList> bannerList;
   List<LocalNavList> localNavList;
-  GridNav gridNav;
   List<SubNavList> subNavList;
+  GridNav gridNav;
   SalesBox salesBox;
 
   HomeModel(

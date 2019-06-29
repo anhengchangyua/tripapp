@@ -32,10 +32,10 @@ class Hotel {
   String startColor;
   String endColor;
   MainItem mainItem;
-  Item1 item1;
-  Item2 item2;
-  Item3 item3;
-  Item4 item4;
+  MainItem item1;
+  MainItem item2;
+  MainItem item3;
+  MainItem item4;
 
   Hotel(
       {this.startColor,
@@ -52,10 +52,10 @@ class Hotel {
     mainItem = json['mainItem'] != null
         ? new MainItem.fromJson(json['mainItem'])
         : null;
-    item1 = json['item1'] != null ? new Item1.fromJson(json['item1']) : null;
-    item2 = json['item2'] != null ? new Item2.fromJson(json['item2']) : null;
-    item3 = json['item3'] != null ? new Item3.fromJson(json['item3']) : null;
-    item4 = json['item4'] != null ? new Item4.fromJson(json['item4']) : null;
+    item1 = json['item1'] != null ? new MainItem.fromJson(json['item1']) : null;
+    item2 = json['item2'] != null ? new MainItem.fromJson(json['item2']) : null;
+    item3 = json['item3'] != null ? new MainItem.fromJson(json['item3']) : null;
+    item4 = json['item4'] != null ? new MainItem.fromJson(json['item4']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -195,10 +195,10 @@ class Flight {
   String startColor;
   String endColor;
   MainItem mainItem;
-  Item1 item1;
-  Item2 item2;
-  Item3 item3;
-  Item4 item4;
+  MainItem item1;
+  MainItem item2;
+  MainItem item3;
+  MainItem item4;
 
   Flight(
       {this.startColor,
@@ -215,10 +215,10 @@ class Flight {
     mainItem = json['mainItem'] != null
         ? new MainItem.fromJson(json['mainItem'])
         : null;
-    item1 = json['item1'] != null ? new Item1.fromJson(json['item1']) : null;
-    item2 = json['item2'] != null ? new Item2.fromJson(json['item2']) : null;
-    item3 = json['item3'] != null ? new Item3.fromJson(json['item3']) : null;
-    item4 = json['item4'] != null ? new Item4.fromJson(json['item4']) : null;
+    item1 = json['item1'] != null ? new MainItem.fromJson(json['item1']) : null;
+    item2 = json['item2'] != null ? new MainItem.fromJson(json['item2']) : null;
+    item3 = json['item3'] != null ? new MainItem.fromJson(json['item3']) : null;
+    item4 = json['item4'] != null ? new MainItem.fromJson(json['item4']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -248,10 +248,10 @@ class Travel {
   String startColor;
   String endColor;
   MainItem mainItem;
-  Item1 item1;
-  Item2 item2;
-  Item3 item3;
-  Item4 item4;
+  MainItem item1;
+  MainItem item2;
+  MainItem item3;
+  MainItem item4;
 
   Travel(
       {this.startColor,
@@ -268,10 +268,10 @@ class Travel {
     mainItem = json['mainItem'] != null
         ? new MainItem.fromJson(json['mainItem'])
         : null;
-    item1 = json['item1'] != null ? new Item1.fromJson(json['item1']) : null;
-    item2 = json['item2'] != null ? new Item2.fromJson(json['item2']) : null;
-    item3 = json['item3'] != null ? new Item3.fromJson(json['item3']) : null;
-    item4 = json['item4'] != null ? new Item4.fromJson(json['item4']) : null;
+    item1 = json['item1'] != null ? new MainItem.fromJson(json['item1']) : null;
+    item2 = json['item2'] != null ? new MainItem.fromJson(json['item2']) : null;
+    item3 = json['item3'] != null ? new MainItem.fromJson(json['item3']) : null;
+    item4 = json['item4'] != null ? new MainItem.fromJson(json['item4']) : null;
   }
 
   Map<String, dynamic> toJson() {
