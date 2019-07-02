@@ -11,22 +11,23 @@ class GridNavWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return PhysicalModel(
       color: Colors.transparent,
-      borderRadius: BorderRadius.circular(6),
+      borderRadius: BorderRadius.circular(8),
       clipBehavior: Clip.antiAlias,
-      child: Column(children: _gridNavItems(context, this.gridNav)),
+      child: Column(children: _gridNavItems(context)),
     );
   }
 
-  _gridNavItems(BuildContext context, GridNav gridItem) {
+  _gridNavItems(BuildContext context) {
     List<Widget> gridItems = [];
-    if (gridItem.flight != null) {
-      gridItems.add(_gridNavItem1(context, gridItem.flight, false));
+    if (gridNav == null) return gridItems;
+    if (gridNav.flight != null) {
+      gridItems.add(_gridNavItem1(context, gridNav.flight, false));
     }
-    if (gridItem.hotel != null) {
-      gridItems.add(_gridNavItem2(context, gridItem.hotel, false));
+    if (gridNav.hotel != null) {
+      gridItems.add(_gridNavItem2(context, gridNav.hotel, false));
     }
-    if (gridItem.travel != null) {
-      gridItems.add(_gridNavItem3(context, gridItem.travel, false));
+    if (gridNav.travel != null) {
+      gridItems.add(_gridNavItem3(context, gridNav.travel, false));
     }
     return gridItems;
   }
@@ -35,18 +36,69 @@ class GridNavWidget extends StatelessWidget {
     List<Widget> gridItems = [];
     gridItems.add(_mainItem(context, gridItem.mainItem));
     gridItems.add(_doubleItem(context, gridItem.item1, gridItem.item3));
+    gridItems.add(_doubleItem(context, gridItem.item2, gridItem.item4));
+    List<Widget> expandItems = [];
+    gridItems.forEach((item) {
+      expandItems.add(Expanded(child: item, flex: 1));
+    });
+
+    Color startColor = Color(int.parse('0xff' + gridItem.startColor));
+    Color endColor = Color(int.parse('0xff' + gridItem.endColor));
+
+    return Container(
+      height: 68,
+      margin: first ? null : EdgeInsets.only(top: 1),
+      decoration: BoxDecoration(
+          //线性渐变
+          gradient: LinearGradient(colors: [startColor, endColor])),
+      child: Row(children: expandItems),
+    );
   }
 
   _gridNavItem2(BuildContext context, Hotel gridItem, bool first) {
     List<Widget> gridItems = [];
     gridItems.add(_mainItem(context, gridItem.mainItem));
     gridItems.add(_doubleItem(context, gridItem.item1, gridItem.item3));
+    gridItems.add(_doubleItem(context, gridItem.item2, gridItem.item4));
+    List<Widget> expandItems = [];
+    gridItems.forEach((item) {
+      expandItems.add(Expanded(child: item, flex: 1));
+    });
+
+    Color startColor = Color(int.parse('0xff' + gridItem.startColor));
+    Color endColor = Color(int.parse('0xff' + gridItem.endColor));
+
+    return Container(
+      height: 68,
+      margin: first ? null : EdgeInsets.only(top: 1),
+      decoration: BoxDecoration(
+          //线性渐变
+          gradient: LinearGradient(colors: [startColor, endColor])),
+      child: Row(children: expandItems),
+    );
   }
 
   _gridNavItem3(BuildContext context, Travel gridItem, bool first) {
     List<Widget> gridItems = [];
     gridItems.add(_mainItem(context, gridItem.mainItem));
     gridItems.add(_doubleItem(context, gridItem.item1, gridItem.item3));
+    gridItems.add(_doubleItem(context, gridItem.item2, gridItem.item4));
+    List<Widget> expandItems = [];
+    gridItems.forEach((item) {
+      expandItems.add(Expanded(child: item, flex: 1));
+    });
+
+    Color startColor = Color(int.parse('0xff' + gridItem.startColor));
+    Color endColor = Color(int.parse('0xff' + gridItem.endColor));
+
+    return Container(
+      height: 68,
+      margin: first ? null : EdgeInsets.only(top: 1),
+      decoration: BoxDecoration(
+          //线性渐变
+          gradient: LinearGradient(colors: [startColor, endColor])),
+      child: Row(children: expandItems),
+    );
   }
 
   _mainItem(BuildContext context, MainItem mainItem) {
@@ -62,6 +114,7 @@ class GridNavWidget extends StatelessWidget {
                     )));
       },
       child: Stack(
+        alignment: AlignmentDirectional.topCenter,
         children: <Widget>[
           Image.network(
             mainItem.icon,
@@ -70,8 +123,11 @@ class GridNavWidget extends StatelessWidget {
             width: 121,
             alignment: AlignmentDirectional.bottomEnd,
           ),
-          Text(mainItem.title,
-              style: TextStyle(fontSize: 14, color: Colors.white))
+          Container(
+            margin: EdgeInsets.only(top: 10),
+            child: Text(mainItem.title,
+                style: TextStyle(fontSize: 14, color: Colors.white)),
+          )
         ],
       ),
     );
@@ -117,7 +173,16 @@ class GridNavWidget extends StatelessWidget {
 
   _wrapGesture(BuildContext context, Widget widget, MainItem model) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => WebView(
+                      url: model.url,
+                      title: model.title,
+                      statusBarColor: model.statusBarColor,
+                    )));
+      },
       child: widget,
     );
   }
