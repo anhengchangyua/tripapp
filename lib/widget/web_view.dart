@@ -79,11 +79,11 @@ class _WebViewState extends State<WebView> {
 
   @override
   void dispose() {
-    super.dispose();
     _onUrlChanged.cancel();
     _onStateChanged.cancel();
     _onErrorState.cancel();
     webViewReference.dispose();
+    super.dispose();
   }
 
   @override
@@ -153,7 +153,7 @@ class _WebViewState extends State<WebView> {
                 child: Center(
                     child: Text(
                   widget.title ?? '',
-                  style: TextStyle(color: backgroundColor, fontSize: 20),
+                  style: TextStyle(color: backButtonColor, fontSize: 20),
                 )),
               ),
             ],

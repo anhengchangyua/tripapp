@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/model/grid_nav_model.dart';
 import 'package:flutter_app/model/home_model.dart';
 import 'package:flutter_app/model/local_nav_list_model.dart';
+import 'package:flutter_app/model/sub_nav_model.dart';
 import 'package:flutter_app/widget/grid_nav.dart';
 import 'package:flutter_app/widget/local_nav.dart';
+import 'package:flutter_app/widget/sub_nav.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_app/dao/home_dao.dart';
 
@@ -24,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   String resultString = '';
   GridNav gridNavModel;
   List<LocalNavList> localNavList = [];
+  List<SubNavList> subNavList = [];
 
   _onScroll(offset) {
     print(offset);
@@ -55,6 +58,8 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         localNavList = homeModel.localNavList;
         gridNavModel = homeModel.gridNav;
+        subNavList = homeModel.subNavList;
+
 //        resultString = json.encode(homeModel);
       });
     } catch (e) {
@@ -114,12 +119,11 @@ class _HomePageState extends State<HomePage> {
                           child: GridNavWidget(
                             gridNav: gridNavModel,
                           )),
-                      Container(
-                        height: 800,
-                        child: ListTile(
-                          title: Text(resultString),
-                        ),
-                      )
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+                          child: SubNav(
+                            subNavList: subNavList,
+                          )),
                     ],
                   )),
             )),
